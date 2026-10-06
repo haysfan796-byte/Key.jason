@@ -1,0 +1,23 @@
+import time
+import random
+import string
+
+def make_key(prefix="VIP"):
+    random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    return f"{prefix}-{random_str}"
+
+def generate_github_json():
+    now = int(time.time())
+    
+    keys = {
+        make_key("1HOUR"): {"expiry": now + 3600, "duration": "1 Hour"},
+        make_key("1DAY"): {"expiry": now + 86400, "duration": "1 Day"},
+        make_key("1WEEK"): {"expiry": now + 604800, "duration": "1 Week"},
+        make_key("1MONTH"): {"expiry": now + 2592000, "duration": "1 Month"}
+    }
+    
+    import json
+    print(json.dumps({"KEYS": keys}, indent=2))
+
+# Script run karne ke liye:
+generate_github_json()
